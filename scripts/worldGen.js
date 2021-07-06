@@ -181,7 +181,9 @@ class BubbleWorldGen {
 
 class worleyAndChunkGen {
     constructor(resolution) {
-        this.chunkGen = new ChunkGenWorld(resolution / 10, resolution / 5);
+        var numberOfChunks = 10;
+        var numberOfSuperChunks = 2;
+        this.chunkGen = new ChunkGenWorld(resolution / numberOfChunks,numberOfChunks);
         this.bubble = new BubbleWorldGen(resolution, 4, 0.3);
     }
     GetMap() {

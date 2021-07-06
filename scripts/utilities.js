@@ -65,3 +65,14 @@ function clamp(min,val,max){
     return Math.max(min,Math.min(max,val));
  }
  
+ 
+
+function updateDisabled(selector, value) {
+     //value = can it be used?
+     if (value) {
+         $(selector).removeAttr("disabled");
+     } else {
+         $(selector).prop("disabled", "disabled");
+     }
+ }
+ 

@@ -36,6 +36,10 @@ button {
   left: auto;
 }
 
+.canvases canvas#borders {
+  opacity: 0.85;
+}
+
 .aggressionControls {
   background-color: #f005;
 }
