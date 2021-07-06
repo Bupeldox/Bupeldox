@@ -28,9 +28,9 @@ class Terrain {
         this.terrain = [];
 
         this.segments = [
-            { min: 0, value: { name: "sea", color: "#11f" } },
-            { min: 0.2, value: { name: "land", color: "#1f1" } },
-            { min: 0.9, value: { name: "sea", color: "#368" } },
+            { min: 0, value: { name: "sea", color: "#36c" } },
+            { min: 0.2, value: { name: "land", color: "#3c3" } },
+            { min: 0.9, value: { name: "ore", color: "#883" } },
         ];
 
         for (var x = 0; x < this.heights.length; x++) {
@@ -50,11 +50,6 @@ class Terrain {
     }
 
     Draw() {
-        console.log("*draws terrain*");
-
-
-
-
         var ctx = this.canvas.ctx;
 
         var boxSize = Math.ceil(this.canvas.canvas.height / this.size);
@@ -72,7 +67,6 @@ class Terrain {
 }
 
 function takeCalculator(steps) {
-
     var steps = 100;
     var output = 0;
     for (var i = 0; i < steps; i++) {
@@ -123,10 +117,22 @@ class Game {
         this.players = [];
         this.players[0] = new Player(0, 0); //Empty
         this.players[0].targetSize = -100000;
+        this.players[0].flavour = -1;
         for (var i = 0; i < playerCount; i++) {
             this.players[i + 1] = new Player(size * size / 2, i + 1);
-
         }
+
+
+        for(var x=0;x<this.terrain.terrain.length;x++){
+            for(var y=0;y<this.terrain.terrain.length;y++){
+                var t = this.terrain.terrain[x][y].name;
+                if(t == "sea"){
+                    this.painter.grid[x][y].flavour = new Cell(-1);
+                }
+            }
+        }
+
+        this.painter.Draw();
         this.UpdateAllPlayers();
         this.resetTargetSizes();
 
@@ -166,6 +172,9 @@ class Game {
     }
     canGrow(flavour, defendingFlavour) {
         //CanGrow
+        if(flavour.value==-1){
+            return false;
+        }
         if (this.conflictResolution && (
             (flavour.value == this.conflictResolution.aggressorPlayer && defendingFlavour.value == this.conflictResolution.defendingPlayer) ||
             (defendingFlavour.value == this.conflictResolution.aggressorPlayer && flavour.value == this.conflictResolution.defendingPlayer))) {
@@ -215,12 +224,10 @@ class Game {
             defendingPlayer: defenderFlavour,
             currentPlayer: aggressorFlavour,
             switchPlayer: function () {
-                if (this.currentPlayer == this.startingPlayer) {
-                    this.currentPlayer = this.defendingPlayer
-                } else { this.currentPlayer = this.aggressorPlayer }
+                this.currentPlayer = this.currentRecedingPlayer();
             },
             currentRecedingPlayer: function () {
-                if (this.currentPlayer == this.aggressorFlavour) {
+                if (this.currentPlayer == this.aggressorPlayer) {
                     return this.defendingPlayer
                 } else { return this.aggressorPlayer }
             },
@@ -365,7 +372,7 @@ class Game {
 
 
 
-var game = new Game(100, 5, 4);
+var game = new Game(300, 2, 4);
 
 function Aggress() {
     var aggressor = $("#aggressorSelect").val();
