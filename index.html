@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="styles/style.css">
+
+
+<div class="aggressionControls">
+	Aggressor:
+	<select id="aggressorSelect">
+		<option value=1>Yellow</option>
+		<option value=2>Purple</option>
+		<option value=3>Green</option>
+		<option value=4>Blue</option>
+	</select>
+	Defender
+	<select id="defenderSelect">
+		<option value=1>Yellow</option>
+		<option value=2 selected>Purple</option>
+		<option value=3>Green</option>
+		<option value=4>Blue</option>
+	</select>
+	<input type="number" id="aggressAmount" value = 1000>
+	<button onClick="Aggress()">aggress</button>
+</div>
+<br>
+<div id="instructions">Choose an aggressor,defender and amount, then press aggress!</div>
+<br>
+
+<div id="brushSize">
+BrushSize:
+<label for="brushSmallRadio"><input type="radio" id="brushSmallRadio" name="brushSize" value="1">Small</label>
+<label for="brushMediumRadio"><input type="radio" id="brushMediumRadio" name="brushSize" value="5" checked>Medium</label>
+<label for="brushLargeRadio"><input type="radio" id="brushLargeRadio" name="brushSize" value="10">Large</label>
+</div>
+<div class="extraControls">
+	<button onClick="game.ResolveBorderStep()" id="finishTurnButton">Finish Resolution Turn</button>
+	<button onClick="game.undo(30)" id="undoButton">Undo</button>
+</div>
+<div class="canvi">
+	<div class="canvases">
+	
+	</div>
+	<div class="gui">
+		
+	</div>
+</div>
+<div class="extraControls">
+	<button id="quitResolutionButton">Quit Resolution Early</b>
+</div>
+<div class="readouts">
+	
+	<span>Conflict Resolution Turn <span id="conflictResolutionTurn"></span></span>
+	<br>
+	<span>Conflict Resolution Displacement <span id="conflictResolutionDisplacement"></span></span>
+	<br>
+	<span>Conflict Current Displacement <span id="confictProgress"></span></span>
+	<br>
+	<span>History Time <span id="historyReadout"></span></span>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script src="scripts/utilities.js"></script>
+
+
+<script src="scripts/painter.js"></script>
+<script src="scripts/main.js"></script>
+

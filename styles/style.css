@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+}
+
+body > div {
+  padding: 8px 18px;
+}
+
+button {
+  padding: 4px 16px;
+}
+
+.canvi {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+}
+
+.canvases {
+  position: relative;
+}
+
+.canvases canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.canvases canvas:first-child {
+  position: relative;
+  top: auto;
+  left: auto;
+}
+
+.aggressionControls {
+  background-color: #f005;
+}
+
+#instructions {
+  height: 10px;
+}
+/*# sourceMappingURL=style.css.map */
