@@ -184,7 +184,7 @@ class worleyAndChunkGen {
         var numberOfChunks = 10;
         var numberOfSuperChunks = 2;
         this.chunkGen = new ChunkGenWorld(resolution / numberOfChunks,numberOfChunks);
-        this.bubble = new BubbleWorldGen(resolution, 4, 0.3);
+        this.bubble = new BubbleWorldGen(resolution, 2, 0.3);
     }
     GetMap() {
         var map = this.chunkGen.GetMap();

@@ -143,11 +143,9 @@ class Game {
         var mousePos = this.painter.MouseEventToGridPos(e);
         this.brushRadius = $('input[name=brushSize]:checked', '#brushSize').val() - 0;
         this.currentFlavour = this.painter.grid[Math.floor(mousePos.x)][Math.floor(mousePos.y)].flavour.value
-        console.log("mousedown" + this.currentFlavour);
         this.PaintAtE(e);
     }
     MouseUp(e) {
-        console.log("mouseup");
         this.isMouseDown = false;
     }
     MouseMove(e) {
@@ -162,33 +160,35 @@ class Game {
             this.brushRadius,
             this.currentFlavour,
             (f, t) => this.onGrow(f, t),
-            (flavour, defendingFlavour) => {
-
-                if (this.conflictResolution && (
-                        (flavour.value == this.conflictResolution.aggressorPlayer && defendingFlavour.value == this.conflictResolution.defendingPlayer) ||
-                        (defendingFlavour.value == this.conflictResolution.aggressorPlayer && flavour.value == this.conflictResolution.defendingPlayer))) {
-
-                    var canGrow = false;
-                    if (defendingFlavour.value == this.conflictResolution.aggressorPlayer) {
-                        //was this cell theirs before the conflict
-                        var CellValueBeforeConflict = getLastElementOfArray(defendingFlavour.history.slice(0, this.conflictResolution.historyPointAtWhichResolutionStarted + 1));
-                        canGrow = CellValueBeforeConflict == this.conflictResolution.defendingPlayer;
-                        if (!canGrow) {
-                            return false;
-                        }
-                    }
-
-
-                    canGrow = this.players[flavour.value].canGrow()
-                    this.players[defendingFlavour.value].canShrink()
-                    return canGrow;
-
-                }
-                return false;
-            }
+            (a, b) => this.canGrow(a, b),
         );
         this.UpdateGUI();
     }
+    canGrow(flavour, defendingFlavour) {
+        //CanGrow
+        if (this.conflictResolution && (
+            (flavour.value == this.conflictResolution.aggressorPlayer && defendingFlavour.value == this.conflictResolution.defendingPlayer) ||
+            (defendingFlavour.value == this.conflictResolution.aggressorPlayer && flavour.value == this.conflictResolution.defendingPlayer))) {
+
+            var canGrow = false;
+            if (defendingFlavour.value == this.conflictResolution.aggressorPlayer) {
+                //was this cell theirs before the conflict
+                var CellValueBeforeConflict = getLastElementOfArray(defendingFlavour.history.slice(0, this.conflictResolution.historyPointAtWhichResolutionStarted + 1));
+                canGrow = CellValueBeforeConflict == this.conflictResolution.defendingPlayer;
+                if (!canGrow) {
+                    return false;
+                }
+            }
+
+
+            canGrow = this.players[flavour.value].canGrow()
+            this.players[defendingFlavour.value].canShrink()
+            return canGrow;
+
+        }
+        return false;
+    }
+
     onGrow(flavour, grownInto) {
         this.players[flavour].size++;
         this.players[grownInto].size--;
@@ -214,12 +214,12 @@ class Game {
             aggressorPlayer: aggressorFlavour,
             defendingPlayer: defenderFlavour,
             currentPlayer: aggressorFlavour,
-            switchPlayer: function() {
+            switchPlayer: function () {
                 if (this.currentPlayer == this.startingPlayer) {
                     this.currentPlayer = this.defendingPlayer
                 } else { this.currentPlayer = this.aggressorPlayer }
             },
-            currentRecedingPlayer: function() {
+            currentRecedingPlayer: function () {
                 if (this.currentPlayer == this.aggressorFlavour) {
                     return this.defendingPlayer
                 } else { return this.aggressorPlayer }
