@@ -136,7 +136,8 @@ class Game {
         this.UpdateAllPlayers();
         this.resetTargetSizes();
 
-        this.minUndo = 0;
+        this.minUndo = 1;
+        historyTime = 1;
         this.UpdateGUI();
     }
     resetTargetSizes() {
@@ -331,8 +332,9 @@ class Game {
             dctx.stroke();
 
             var currentPainterColor = this.painter.FlavourFinder(cr.currentPlayer);
+            $(".canvases").css("border","10px solid "+ currentPainterColor);
             var paintingIntoColor = this.painter.FlavourFinder(cr.currentRecedingPlayer());
-            if (!(this.players[this.conflictResolution.aggressorPlayer].targetSize == this.players[this.conflictResolution.aggressorPlayer].size)) {
+            if (!(this.players[this.conflictResolution.currentPlayer].targetSize == this.players[this.conflictResolution.currentPlayer].size)) {
                 if (cr.turn == 0) {
                     $("#instructions").html("<span style='background-color:" + currentPainterColor + "; color:#fff'>This player</span>, you paint your border into <span style='background-color:" + paintingIntoColor + "; color:#fff'>this player</span>. See the right for how much you can change.");
                 }
@@ -347,6 +349,7 @@ class Game {
 
 
         } else {
+            $(".canvases").css("border","10px solid transparent");
             $("#conflictResolutionTurn").text("(no conflict)");
             $("#conflictResolutionDisplacement").text("(no conflict)");
             $("#confictProgress").text("(no conflict)");
