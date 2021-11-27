@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @Bupeldox
 - 👀 I’m interested in making lil creative code-y stuff
-- 🌱 I’m currently learning the shruti box?
+- 🌱 I’m currently learning front end stuffs
 - 💞️ Am I looking to collaborate? hmm it could be fun!
 
 <!---
